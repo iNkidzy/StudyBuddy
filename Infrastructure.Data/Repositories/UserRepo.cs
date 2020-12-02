@@ -15,17 +15,17 @@ namespace Infrastructure.Data.Repositories
             throw new NotImplementedException();
         }
 
-        public User Delete(int id)
+        public User Delete(long id)
         {
             throw new NotImplementedException();
         }
 
-        public User FindById(int id)
+        public User FindById(long id)
         {
             throw new NotImplementedException();
         }
 
-        public List<User> GetUsers()
+        public List<User> GetUser()
         {
             throw new NotImplementedException();
         }

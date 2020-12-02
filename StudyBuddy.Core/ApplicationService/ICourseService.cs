@@ -1,10 +1,22 @@
-﻿using System;
+﻿using Core.Entity;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace StudyBuddy.Core.ApplicationService
 {
-    interface ICourseService
+    public interface ICourseService
     {
+        Course CreateCourse(string name, long id, List<Topic> topics);
+
+        Course Create(Course Course);
+
+        Course FindById(long id);
+
+        Course Update(Course courseUpdate);
+
+        Course Delete(long id);
+
+        public List<Course> GetCourse();
     }
 }

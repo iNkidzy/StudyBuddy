@@ -12,7 +12,7 @@ namespace StudyBuddy.Core.ApplicationService.Service
             throw new NotImplementedException();
         }
 
-        public Course CreateCourse(long id, string name, List<Topic> topics)
+        public Course CreateCourse(string name, long id, List<Topic> topics)
         {
             throw new NotImplementedException();
         }

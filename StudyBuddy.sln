@@ -15,11 +15,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Entity", "Core.Entity\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudyBuddy.Core", "StudyBuddy.Core\StudyBuddy.Core.csproj", "{321E0BD3-5A70-4A60-AA8B-9699ACE32947}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Data", "Infrastructure.Data\Infrastructure.Data.csproj", "{2F439F07-231B-497A-8307-6EDC7F190317}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.Data", "Infrastructure.Data\Infrastructure.Data.csproj", "{2F439F07-231B-497A-8307-6EDC7F190317}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{B01583BE-1046-475A-8AB3-78A10FC7B102}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudyBuddyTest", "StudyBuddyTest\StudyBuddyTest.csproj", "{930701E0-4701-4726-838D-341A78B5CA67}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudyBuddyTest", "StudyBuddyTest\StudyBuddyTest.csproj", "{930701E0-4701-4726-838D-341A78B5CA67}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
