@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace StudyBuddy.Core.DomainService
+namespace StudyBuddy.Core.ApplicationService
 {
-    public class ITopicRepository
+    interface ICourseService
     {
-        
     }
 }
