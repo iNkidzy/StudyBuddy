@@ -18,7 +18,7 @@ namespace StudyBuddy.Core.ApplicationService
 
 
         public List<Topic> GetTopics();
-        Topic 
+        
         
     }
 }
