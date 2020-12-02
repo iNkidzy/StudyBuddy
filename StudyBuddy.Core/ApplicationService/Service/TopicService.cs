@@ -17,12 +17,12 @@ namespace StudyBuddy.Core.ApplicationService.Service
             throw new NotImplementedException();
         }
 
-        public Topic Delete(int id)
+        public Topic Delete(long id)
         {
             throw new NotImplementedException();
         }
 
-        public Topic FindById(int id)
+        public Topic FindById(long id)
         {
             throw new NotImplementedException();
         }
