@@ -7,15 +7,15 @@ namespace StudyBuddy.Core.ApplicationService
 {
    public interface ITopicService
     {
-        Topic Createtopic(string name, string mainBody, long id, Course course);
+        Topic Createtopic(string name, string mainBody, long id, Course course, List<Comment> comments);
 
         Topic Create(Topic topic);
 
-        Topic FindById(int id);
+        Topic FindById(long id);
 
         Topic Update(Topic topicUpdate);
-        Topic Delete(int id);
 
+        Topic Delete(long id);
 
         public List<Topic> GetTopics();
         

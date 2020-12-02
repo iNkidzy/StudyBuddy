@@ -9,6 +9,5 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core.Entity\Core.Entity.csproj" />
-    <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj" />
   </ItemGroup>
 </Project>
