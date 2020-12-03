@@ -18,9 +18,9 @@ namespace Infrastructure.Data
 
         }
 
-        public DbSet<User> User { get; set; }
-        public DbSet<Course> Course { get; set; }
-        public DbSet<Topic> Topic { get; set; }
-        public DbSet<Comment> Comment { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<Topic> Topics { get; set; }
+        public DbSet<Comment> Comments { get; set; }
     }
 }

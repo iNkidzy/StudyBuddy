@@ -4,60 +4,50 @@ using StudyBuddy.Core.DomainService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data.Repositories
 {
     public class TopicRepo : ITopicRepository
     {
-        private static List<Topic> _topicList = new List<Topic>();
-        public ITopicService _topService;
+        private StudyBuddyContext _ctx;
 
-        public TopicRepo(ITopicService topicService)
+        public TopicRepo(StudyBuddyContext ctx)
         {
-            _topService = topicService;
+            _ctx = ctx;
         }
 
         public Topic Create(Topic topic)
         {
-            _topicList.Add(topic);
-            return topic;
-            /* Topic t = _ctx.Topics.Add(topic).Entity;
+            Topic t = _ctx.Topics.Add(topic).Entity;
              _ctx.SaveChanges();
-             return t;*/
-            
+             return t;
         }
 
        
 
         public Topic Delete(long id)
         {
-            /*  Topic t = GetTopic().ToList().Find(x => x.Id == id);
-          GetTopic).ToList().Remove(t);
+           Topic t = GetTopics().ToList().Find(x => x.Id == id);
+          GetTopics().ToList().Remove(t);
           if (t != null) 
           {
               return t;
           }
-          return null;*/
-            throw new NotImplementedException();
-           
+          return null;
         }
 
         public Topic FindById(long id)
         {
-            var topic = _topicList.Find(x => x.Id == id);
-            return topic;
-            /*return _ctx.Topics
+            return _ctx.Topics
                 .AsNoTracking()
-                .FirstOrDefault(c => c.Id == id);*/
-           
+                .FirstOrDefault(c => c.Id == id);
         }
 
         public IEnumerable<Topic> GetTopics()
         {
-            return _topicList.ToList();
-            /*
-            return _ctx.Topics.Include(c => c.Course).ToList();*/
-
+            
+            return _ctx.Topics.Include(c => c.Comments).ToList();
         }
 
         public Topic Update(Topic topicUpdate)

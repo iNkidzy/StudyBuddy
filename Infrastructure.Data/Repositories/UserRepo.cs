@@ -4,54 +4,47 @@ using StudyBuddy.Core.DomainService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data.Repositories
 {
     public class UserRepo : IUserRepository
     {
-        private static List<User> _userList = new List<User>();
-        readonly IUserService _usrService;
-        public UserRepo(IUserService userService)
+        private StudyBuddyContext _ctx;
+        public UserRepo(StudyBuddyContext ctx)
         {
-            _usrService = userService;
+            _ctx = ctx;
         }
         public User Create(User user)
         {
-            _userList.Add(user);
-            return user;
-            /* User u = _ctx.Users.Add(user).Entity;
+            User u = _ctx.Users.Add(user).Entity;
              _ctx.SaveChanges();
-             return u;*/
+             return u;
             
         }
 
         public User Delete(long id)
         {
-            /*  User u = GetUser().ToList().Find(x => x.Id == id);
-        GetUser).ToList().Remove(u);
+            User u = GetUser().ToList().Find(x => x.Id == id);
+        GetUser().ToList().Remove(u);
         if (u != null) 
         {
             return u;
         }
-        return null;*/
-            throw new NotImplementedException();
-           
+        return null;
         }
 
         public User FindById(long id)
         {
-            var user = _userList.Find(x => x.Id == id);
-            return user;
-            /*return _ctx.Users
+            return _ctx.Users
                 .AsNoTracking()
-                .FirstOrDefault(c => c.Id == id);*/
+                .FirstOrDefault(c => c.Id == id);
         }
 
         public IEnumerable<User> GetUser()
         {
-            return _userList.ToList();
-            /*
-            return _ctx.Users.Include(c => c.Course).ToList();*/
+            
+            return _ctx.Users.Include(c => c.Courses).ToList();
         }
 
         public User Update(User userUpdate)

@@ -12,7 +12,7 @@ namespace Core.Entity
         public long Id { get; set; }
         public string Name { get; set; }
         public string MainBody { get; set; }
-        public List<Comment> Comment { get; set; }
+        public List<Comment> Comments { get; set; }
         public Course Course { get; set; }
     }
 }
