@@ -10,10 +10,8 @@
   <NoWarn>$(NoWarn);1591</NoWarn>
 </PropertyGroup>
     
-
   <PropertyGroup Condition=" '$(RunConfiguration)|$(Platform)' == 'Release|AnyCPU' " />
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Release' " />
-  <PropertyGroup Condition=" '$(RunConfiguration)' == 'StudyBuddy.UI' " />
   <ItemGroup>
     <Folder Include="Controllers\" />
   </ItemGroup>
@@ -21,6 +19,20 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.10" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.6.3" />
-    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.6.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core.Entity\Core.Entity.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+    <ProjectReference Include="..\StudyBuddy.Core\StudyBuddy.Core.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+    <ProjectReference Include="..\StudyBuddyTest\StudyBuddyTest.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
 </Project>

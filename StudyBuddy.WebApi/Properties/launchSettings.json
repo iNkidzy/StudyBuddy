@@ -9,6 +9,14 @@
     }
   },
   "profiles": {
+    "Release": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:51961;http://localhost:52848",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
@@ -17,18 +25,10 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "StudyBuddy.UI": {
-      "commandName": "Project",
-      "launchBrowser": true,
-      "launchUrl": "studybuddy",
-      "applicationUrl": "https://localhost:5001;http://localhost:5000",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    },
     "StudyBuddy.WebApi": {
       "commandName": "Project",
       "launchBrowser": true,
+      "launchUrl": "https://localhost:63146/api/course",
       "applicationUrl": "https://localhost:63146;http://localhost:5578",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

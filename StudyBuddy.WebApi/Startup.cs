@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Core.Entity;
+using Infrastructure.Data.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -14,6 +16,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
+using StudyBuddy.Core.ApplicationService;
+using StudyBuddy.Core.ApplicationService.Service;
+using StudyBuddy.Core.DomainService;
 
 namespace StudyBuddy.UI
 {
@@ -37,10 +42,38 @@ namespace StudyBuddy.UI
                 builder.AddConsole();
             });
             //AddEnvironment for deployment context/Azure
+            // if (Environment.IsDevelopment())
+            // {   
+            //      services.AddDbContext<context>(opt => { opt.UseSqlite("Data Source=StudyBuddy.db"); }
+            //       );
+            //   }
+            //else
+            //{
+            //    //Azure SQL database:
+            //    services.AddDbContext<context>(opt =>
+            //        opt.UseSqlServer(Configuration.GetConnectionString("defaultConnection"))
+            //        );
+            //}
+
+
 
             //Authentication
 
             //Repos implementation
+
+            services.AddScoped<ICommentRepository, CommentRepo>();
+            services.AddScoped<IUserRepository, UserRepo>();
+            services.AddScoped<ICourseRepository, CourseRepo>();
+            services.AddScoped<ITopicRepository, TopicRepo>();
+            services.AddScoped<ICommentService, CommentService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ICourseService, CourseService>();
+            services.AddScoped<ITopicService, TopicService>();
+
+           // services.AddTransient<IDBinitializer, DBinitializer>();
+
+           // services.AddSingleton<IAuthenticationHelper>(new
+           //   AuthenticationHelper(secretBytes));
 
             //Swagger
             services.AddSwaggerGen(c =>
@@ -90,12 +123,12 @@ namespace StudyBuddy.UI
 
             app.UseSwagger();
 
-            //SwaggerUI here later
             
-          //  app.UseSwaggerUI(c =>
-          //  {
-          //      c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-          //  });
+
+           app.UseSwaggerUI(c =>
+           {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
 
 
 
@@ -105,15 +138,16 @@ namespace StudyBuddy.UI
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
+          //  else
+          //  {
            
-                using (var scope = app.ApplicationServices.CreateScope())
-                {
+          //      using (var scope = app.ApplicationServices.CreateScope())
+         //       {
                   //  var ctx = scope.ServiceProvider.GetService<Context>();
                   //  ctx.Database.EnsureCreated();
-                }
-            }
+          //      }
+         //   }
+
 
             app.UseHttpsRedirection();
 

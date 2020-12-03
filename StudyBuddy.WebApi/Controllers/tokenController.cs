@@ -7,9 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace StudyBuddy.WebApi.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class tokenController : ControllerBase
+    [Route("/token")]
+    public class tokenController : Controller
     {
     }
 }
