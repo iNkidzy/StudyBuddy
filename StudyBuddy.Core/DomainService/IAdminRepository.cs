@@ -15,6 +15,6 @@ namespace StudyBuddy.Core.DomainService
 
         Admin FindById(long id);
 
-        public List<Admin> GetAdmin();
+        public IEnumerable<Admin> GetAdmin();
     }
 }

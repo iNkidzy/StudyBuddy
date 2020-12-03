@@ -15,6 +15,6 @@ namespace StudyBuddy.Core.DomainService
 
         Comment FindById(long id);
 
-        public List<Comment> GetComment();
+        public IEnumerable<Comment> GetComment();
     }
 }

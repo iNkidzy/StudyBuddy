@@ -16,6 +16,6 @@ namespace StudyBuddy.Core.DomainService
 
         Course FindById(long id);
 
-        public List<Course> GetCourse();
+        public IEnumerable<Course> GetCourse();
     }
 }
