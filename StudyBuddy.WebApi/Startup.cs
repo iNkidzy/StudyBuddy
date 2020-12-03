@@ -41,7 +41,9 @@ namespace StudyBuddy.UI
             {
                 builder.AddConsole();
             });
+
             //AddEnvironment for deployment context/Azure
+
             // if (Environment.IsDevelopment())
             // {   
             //      services.AddDbContext<context>(opt => { opt.UseSqlite("Data Source=StudyBuddy.db"); }
@@ -60,11 +62,13 @@ namespace StudyBuddy.UI
             //Authentication
 
             //Repos implementation
-
+            services.AddScoped<IAdminRepository, AdminRepo>();
             services.AddScoped<ICommentRepository, CommentRepo>();
             services.AddScoped<IUserRepository, UserRepo>();
             services.AddScoped<ICourseRepository, CourseRepo>();
             services.AddScoped<ITopicRepository, TopicRepo>();
+
+            services.AddScoped<IAdminService, AdminService>();
             services.AddScoped<ICommentService, CommentService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ICourseService, CourseService>();
@@ -75,7 +79,10 @@ namespace StudyBuddy.UI
            // services.AddSingleton<IAuthenticationHelper>(new
            //   AuthenticationHelper(secretBytes));
 
+
+
             //Swagger
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -118,6 +125,7 @@ namespace StudyBuddy.UI
             {
                 //Initialize database here
                 var services = scope.ServiceProvider;
+
             }
 
 

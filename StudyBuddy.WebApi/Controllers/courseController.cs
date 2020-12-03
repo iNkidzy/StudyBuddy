@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Core.Entity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using StudyBuddy.Core.ApplicationService;
 using StudyBuddy.Core.DomainService;
 
 namespace StudyBuddy.WebApi.Controllers
@@ -15,52 +16,53 @@ namespace StudyBuddy.WebApi.Controllers
     public class courseController : Controller
     {
 
-        private readonly ICourseRepository repository;
+        private readonly ICourseService _cService;
 
-        public courseController(ICourseRepository repos)
+        public courseController(ICourseService courseService)
         {
-            repository = repos;
+            _cService = courseService;
         }
 
         // GET: api/course
         [HttpGet]
         public IEnumerable<Course> Get()
         {
-            return repository.GetCourse();
+            return _cService.GetCourse();
         }
 
         // GET: api/course/5
         [HttpGet("{id}", Name = "Get")]
-        public IActionResult Get(long id)
+        public ActionResult<Course> Get(long id)
         {
-            return new NoContentResult();
-        //    var course = repository.GetCourse(id);
-        //    if(course == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return new ObjectResult(course);
+            return _cService.FindById(id);
+
+            //    var course = _cService.GetCourse(id);
+            //    if(course == null)
+            //    {
+            //        return NotFound();
+            //    }
+            //    return new ObjectResult(course);
         }
 
         // POST: api/course
         [HttpPost]
-        public ActionResult<Course>Post([FromBody] Course course)
+        public ActionResult<Course> Post([FromBody] Course course)
         {
-            return repository.Create(course);
+            return _cService.Create(course);
         }
 
         // PUT: api/course/5
         [HttpPut("{id}")]
-        public IActionResult Put(long id, [FromBody] Course course)
+        public ActionResult<Course> Put(long id, [FromBody] Course course)
         {
-            return new NoContentResult();
+            return _cService.Update(course);
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(long id)
+        public ActionResult<Course> Delete(long id)
         {
-            return new NoContentResult();
+            return _cService.Delete(id);
         }
     }
 }

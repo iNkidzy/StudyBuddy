@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Core.Entity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using StudyBuddy.Core.ApplicationService;
 
 namespace StudyBuddy.WebApi.Controllers
 {
@@ -11,36 +13,46 @@ namespace StudyBuddy.WebApi.Controllers
     [ApiController]
     public class userController : ControllerBase
     {
+        private readonly IUserService _uService;
+
+        public userController(IUserService userService)
+        {
+            _uService = userService;
+        }
+
         // GET: api/user
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<User> Get()
         {
-            return new string[] { "value1", "value2" };
+            return _uService.GetUsers();
         }
 
         // GET: api/user/5
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        public ActionResult<User> Get(long id)
         {
-            return "value";
+            return _uService.FindById(id);
         }
 
         // POST: api/user
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult<User> Post([FromBody] User user)
         {
+            return _uService.Create(user);
         }
 
         // PUT: api/user/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public ActionResult<User> Put(long id, [FromBody] User user)
         {
+            return _uService.Update(user);
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult<User> Delete(long id)
         {
+            return _uService.Delete(id);
         }
     }
 }

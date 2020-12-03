@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Core.Entity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using StudyBuddy.Core.ApplicationService;
 
 namespace StudyBuddy.WebApi.Controllers
 {
@@ -11,36 +13,45 @@ namespace StudyBuddy.WebApi.Controllers
     [ApiController]
     public class commentController : ControllerBase
     {
+        private readonly ICommentService _comService;
+
+        public commentController(ICommentService commentService)
+        {
+            _comService = commentService;
+        }
         // GET: api/comment
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Comment> Get()
         {
-            return new string[] { "value1", "value2" };
+            return _comService.GetComment();
         }
 
         // GET: api/comment/5
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        public ActionResult<Comment> Get(long id)
         {
-            return "value";
+            return _comService.FindById(id);
         }
 
         // POST: api/comment
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult<Comment> Post([FromBody] Comment comment)
         {
+            return _comService.Create(comment);
         }
 
         // PUT: api/comment/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public ActionResult<Comment> Put(long id, [FromBody] Comment comment)
         {
+            return _comService.Update(comment);
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult<Comment> Delete(long id)
         {
+            return _comService.Delete(id);
         }
     }
 }

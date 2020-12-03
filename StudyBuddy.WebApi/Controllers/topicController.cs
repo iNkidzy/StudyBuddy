@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Core.Entity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using StudyBuddy.Core.ApplicationService;
 
 namespace StudyBuddy.WebApi.Controllers
 {
@@ -11,36 +13,47 @@ namespace StudyBuddy.WebApi.Controllers
     [ApiController]
     public class topicController : ControllerBase
     {
+        private readonly ITopicService _topService;
+
+        public topicController(ITopicService topService)
+        {
+            _topService = topService;
+        }
+
         // GET: api/topic
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Topic> Get()
         {
-            return new string[] { "value1", "value2" };
+            return _topService.GetTopics();
         }
 
         // GET: api/topic/5
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        public ActionResult<Topic> Get(long id)
         {
-            return "value";
+            return _topService.FindById(id);
         }
 
         // POST: api/topic
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult<Topic> Post([FromBody] Topic topic)
         {
+            return _topService.Create(topic);
+
         }
 
         // PUT: api/topic/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public ActionResult<Topic> Put(int id, [FromBody] Topic topic)
         {
+            return _topService.Update(topic);
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult<Topic> Delete(int id)
         {
+            return _topService.Delete(id);
         }
     }
 }
