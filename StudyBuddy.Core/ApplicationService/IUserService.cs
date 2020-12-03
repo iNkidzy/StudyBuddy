@@ -7,15 +7,15 @@ namespace StudyBuddy.Core.ApplicationService
 {
     public interface IUserService
     {
-        User Createtopic(string name, string email, bool isTeacher);
+        User CreateUser(string name, string email);
 
         User Create(User user);
 
-        User FindById(int id);
+        User FindById(long id);
 
         User Update(User userUpdate);
 
-        User Delete(int id);
+        User Delete(long id);
 
         public List<User> GetUsers();
     }

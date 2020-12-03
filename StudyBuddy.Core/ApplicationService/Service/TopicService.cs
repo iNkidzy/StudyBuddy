@@ -52,7 +52,7 @@ namespace StudyBuddy.Core.ApplicationService.Service
         {
             if (topicUpdate.MainBody.Length < 1)
             {
-                throw new InvalidDataException("comment must be atleast 1 character");
+                throw new InvalidDataException("topic must be atleast 1 character");
             }
             else
             {

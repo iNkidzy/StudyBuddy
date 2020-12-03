@@ -7,7 +7,7 @@ namespace StudyBuddy.Core.ApplicationService
 {
    public interface ITopicService
     {
-        Topic Createtopic(string name, string mainBody, long id, Course course, List<Comment> comments);
+        Topic Createtopic(string name, string mainBody, Course course, List<Comment> comments);
 
         Topic Create(Topic topic);
 
