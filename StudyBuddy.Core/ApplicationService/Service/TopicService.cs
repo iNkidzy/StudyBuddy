@@ -28,7 +28,7 @@ namespace StudyBuddy.Core.ApplicationService.Service
                 Name = name,
                 MainBody = mainBody,
                 Course = course,
-                Comment = comments
+                Comments = comments
             };
             return topic;
         }
@@ -59,7 +59,7 @@ namespace StudyBuddy.Core.ApplicationService.Service
                 var topic = FindById(topicUpdate.Id);
                 topic.MainBody = topicUpdate.MainBody;
                 topic.Course = topicUpdate.Course;
-                topic.Comment = topicUpdate.Comment;
+                topic.Comments = topicUpdate.Comments;
                 topic.Name = topicUpdate.Name;
                 return topic;
             }
