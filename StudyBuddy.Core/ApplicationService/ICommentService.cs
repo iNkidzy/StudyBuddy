@@ -7,7 +7,7 @@ namespace StudyBuddy.Core.ApplicationService
 {
     public interface ICommentService
     {
-        Comment CreateComment(long id, string name, DateTime datePosted, string MainBody, Topic topic, User user);
+        Comment CreateComment(DateTime datePosted, string MainBody, Topic topic, User user);
 
         Comment Create(Comment Comment);
 
