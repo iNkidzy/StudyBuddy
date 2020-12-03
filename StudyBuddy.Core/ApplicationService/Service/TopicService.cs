@@ -1,40 +1,68 @@
 ﻿using Core.Entity;
+using StudyBuddy.Core.DomainService;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace StudyBuddy.Core.ApplicationService.Service
 {
     public class TopicService : ITopicService
     {
-        public Topic Create(Topic topic)
+        readonly ITopicRepository _topRepo;
+        public TopicService(ITopicRepository topicRepository) 
         {
-            throw new NotImplementedException();
+            _topRepo = topicRepository;
         }
 
-        public Topic Createtopic(string name, string mainBody, long id, Course course, List<Comment> comments)
+        public Topic Create(Topic topic)
         {
-            throw new NotImplementedException();
+            return _topRepo.Create(topic);
+        }
+
+        public Topic Createtopic(string name, string mainBody, Course course, List<Comment> comments)
+        {
+            var topic = new Topic()
+            {
+                Name = name,
+                MainBody = mainBody,
+                Course = course,
+                Comment = comments
+            };
+            return topic;
         }
 
         public Topic Delete(long id)
         {
-            throw new NotImplementedException();
+            return _topRepo.Delete(id);
         }
 
         public Topic FindById(long id)
         {
-            throw new NotImplementedException();
+            return _topRepo.FindById(id);
         }
 
         public List<Topic> GetTopics()
         {
-            throw new NotImplementedException();
+            return _topRepo.GetTopics().ToList();
         }
 
         public Topic Update(Topic topicUpdate)
         {
-            throw new NotImplementedException();
+            if (topicUpdate.MainBody.Length < 1)
+            {
+                throw new InvalidDataException("topic must be atleast 1 character");
+            }
+            else
+            {
+                var topic = FindById(topicUpdate.Id);
+                topic.MainBody = topicUpdate.MainBody;
+                topic.Course = topicUpdate.Course;
+                topic.Comment = topicUpdate.Comment;
+                topic.Name = topicUpdate.Name;
+                return topic;
+            }
         }
     }
 }

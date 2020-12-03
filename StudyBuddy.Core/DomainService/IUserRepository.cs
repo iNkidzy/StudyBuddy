@@ -15,6 +15,6 @@ namespace StudyBuddy.Core.DomainService
 
         User FindById(long id);
 
-        public List<User> GetUser();
+        public IEnumerable<User> GetUser();
     }
 }

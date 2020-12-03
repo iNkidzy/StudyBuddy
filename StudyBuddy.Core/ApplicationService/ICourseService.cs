@@ -7,7 +7,7 @@ namespace StudyBuddy.Core.ApplicationService
 {
     public interface ICourseService
     {
-        Course CreateCourse(string name, long id, List<Topic> topics);
+        Course CreateCourse(string name, List<Topic> topics);
 
         Course Create(Course Course);
 
