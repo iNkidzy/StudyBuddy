@@ -12,6 +12,7 @@
     
   <PropertyGroup Condition=" '$(RunConfiguration)|$(Platform)' == 'Release|AnyCPU' " />
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Release' " />
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Custom' " />
   <ItemGroup>
     <Folder Include="Controllers\" />
   </ItemGroup>
