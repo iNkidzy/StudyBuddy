@@ -13,12 +13,12 @@ namespace StudyBuddy.WebApi.Controllers
     // [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
-    public class courseController : Controller
+    public class CourseController : Controller
     {
 
         private readonly ICourseService _cService;
 
-        public courseController(ICourseService courseService)
+        public CourseController(ICourseService courseService)
         {
             _cService = courseService;
         }
@@ -31,7 +31,7 @@ namespace StudyBuddy.WebApi.Controllers
         }
 
         // GET: api/course/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public ActionResult<Course> Get(long id)
         {
             return _cService.FindById(id);

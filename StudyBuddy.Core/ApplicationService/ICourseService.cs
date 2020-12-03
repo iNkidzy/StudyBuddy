@@ -9,7 +9,7 @@ namespace StudyBuddy.Core.ApplicationService
     {
         Course CreateCourse(string name, List<Topic> topics);
 
-        Course Create(Course Course);
+        Course Create(Course course);
 
         Course FindById(long id);
 

@@ -11,11 +11,11 @@ namespace StudyBuddy.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class topicController : ControllerBase
+    public class TopicController : ControllerBase
     {
         private readonly ITopicService _topService;
 
-        public topicController(ITopicService topService)
+        public TopicController(ITopicService topService)
         {
             _topService = topService;
         }
@@ -28,7 +28,7 @@ namespace StudyBuddy.WebApi.Controllers
         }
 
         // GET: api/topic/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public ActionResult<Topic> Get(long id)
         {
             return _topService.FindById(id);
