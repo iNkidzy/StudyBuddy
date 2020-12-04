@@ -5,11 +5,13 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Core.Entity;
+using Infrastructure.Data;
 using Infrastructure.Data.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -62,13 +64,12 @@ namespace StudyBuddy.UI
             //Authentication
 
             //Repos implementation
-            services.AddScoped<IAdminRepository, AdminRepo>();
+            services.AddDbContext<StudyBuddyContext>(opt => opt.UseSqlite("Data Source=StudyBuddy.db"));
             services.AddScoped<ICommentRepository, CommentRepo>();
             services.AddScoped<IUserRepository, UserRepo>();
             services.AddScoped<ICourseRepository, CourseRepo>();
             services.AddScoped<ITopicRepository, TopicRepo>();
 
-            services.AddScoped<IAdminService, AdminService>();
             services.AddScoped<ICommentService, CommentService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ICourseService, CourseService>();
@@ -123,8 +124,10 @@ namespace StudyBuddy.UI
 
             using (var scope = app.ApplicationServices.CreateScope())
             {
-                //Initialize database here
+                
                 var services = scope.ServiceProvider;
+                var ctx = scope.ServiceProvider.GetService<StudyBuddyContext>();
+                DBInitializer.SeedDB(ctx);
 
             }
 
@@ -145,16 +148,17 @@ namespace StudyBuddy.UI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
             }
-          //  else
-          //  {
-           
-          //      using (var scope = app.ApplicationServices.CreateScope())
-         //       {
-                  //  var ctx = scope.ServiceProvider.GetService<Context>();
-                  //  ctx.Database.EnsureCreated();
-          //      }
-         //   }
+            else
+            {
+
+                using (var scope = app.ApplicationServices.CreateScope())
+                {
+                    var ctx = scope.ServiceProvider.GetService<StudyBuddyContext>();
+                    DBInitializer.SeedDB(ctx);
+                }
+            }
 
 
             app.UseHttpsRedirection();

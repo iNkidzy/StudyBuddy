@@ -11,11 +11,11 @@ namespace StudyBuddy.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class commentController : ControllerBase
+    public class CommentController : ControllerBase
     {
         private readonly ICommentService _comService;
 
-        public commentController(ICommentService commentService)
+        public CommentController(ICommentService commentService)
         {
             _comService = commentService;
         }
@@ -27,7 +27,7 @@ namespace StudyBuddy.WebApi.Controllers
         }
 
         // GET: api/comment/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public ActionResult<Comment> Get(long id)
         {
             return _comService.FindById(id);

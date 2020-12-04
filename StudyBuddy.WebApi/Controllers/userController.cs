@@ -11,11 +11,11 @@ namespace StudyBuddy.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class userController : ControllerBase
+    public class UserController : ControllerBase
     {
         private readonly IUserService _uService;
 
-        public userController(IUserService userService)
+        public UserController(IUserService userService)
         {
             _uService = userService;
         }
@@ -28,7 +28,7 @@ namespace StudyBuddy.WebApi.Controllers
         }
 
         // GET: api/user/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public ActionResult<User> Get(long id)
         {
             return _uService.FindById(id);
