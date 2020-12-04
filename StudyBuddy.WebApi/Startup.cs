@@ -6,7 +6,9 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Core.Entity;
 using Infrastructure.Data;
+using Infrastructure.Data.Helper;
 using Infrastructure.Data.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -16,6 +18,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using StudyBuddy.Core.ApplicationService;
@@ -75,12 +78,28 @@ namespace StudyBuddy.UI
             services.AddScoped<ICourseService, CourseService>();
             services.AddScoped<ITopicService, TopicService>();
 
-           // services.AddTransient<IDBinitializer, DBinitializer>();
+            //services.AddTransient<IDBinitializer, DBinitializer>();
 
-           // services.AddSingleton<IAuthenticationHelper>(new
-           //   AuthenticationHelper(secretBytes));
+            Byte[] secretBytes = new byte[40];
+            Random rand = new Random();
+            rand.NextBytes(secretBytes);
+            services.AddSingleton<IAuthenticationHelper>(new 
+                AuthenticationHelper(secretBytes));
 
-
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateAudience = false,
+                    //ValidAudience = "TodoApiClient",
+                    ValidateIssuer = false,
+                    //ValidIssuer = "TodoApi",
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(secretBytes),
+                    ValidateLifetime = true, //validate the expiration and not before values in the token
+                    ClockSkew = TimeSpan.FromMinutes(5) //5 minute tolerance for the expiration date
+                };
+            });
 
             //Swagger
 
@@ -168,6 +187,8 @@ namespace StudyBuddy.UI
             app.UseCors();
 
             app.UseAuthorization();
+
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

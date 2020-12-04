@@ -10,5 +10,8 @@ namespace Core.Entity
         public bool IsTeacher { get; set; }
         public string Email { get; set; }
         public List<Course> Courses { get; set; }
+        public byte[] PasswordHash { get; set; }
+        public byte[] PasswordSalt { get; set; }
+        public bool IsAdmin { get; set; }
     }
 }
