@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Core.Entity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StudyBuddy.Core.ApplicationService;
@@ -21,6 +22,7 @@ namespace StudyBuddy.WebApi.Controllers
         }
 
         // GET: api/user
+       // [Authorize]
         [HttpGet]
         public IEnumerable<User> Get()
         {
@@ -28,6 +30,7 @@ namespace StudyBuddy.WebApi.Controllers
         }
 
         // GET: api/user/5
+        //[Authorize(Roles = "Administrator")]
         [HttpGet("{id}")]
         public ActionResult<User> Get(long id)
         {
@@ -35,6 +38,7 @@ namespace StudyBuddy.WebApi.Controllers
         }
 
         // POST: api/user
+       // [Authorize(Roles = "Administrator")]
         [HttpPost]
         public ActionResult<User> Post([FromBody] User user)
         {
@@ -42,6 +46,7 @@ namespace StudyBuddy.WebApi.Controllers
         }
 
         // PUT: api/user/5
+       // [Authorize(Roles = "Administrator")]
         [HttpPut("{id}")]
         public ActionResult<User> Put(long id, [FromBody] User user)
         {
@@ -49,6 +54,7 @@ namespace StudyBuddy.WebApi.Controllers
         }
 
         // DELETE: api/ApiWithActions/5
+      // [Authorize(Roles = "Administrator")]
         [HttpDelete("{id}")]
         public ActionResult<User> Delete(long id)
         {
