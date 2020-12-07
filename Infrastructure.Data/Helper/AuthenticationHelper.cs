@@ -24,8 +24,19 @@ namespace Infrastructure.Data.Helper
                 new Claim(ClaimTypes.Name, user.Name)
             };
 
-            if (user.IsAdmin)
-                claims.Add(new Claim(ClaimTypes.Role, "Administrator"));
+            switch (user.UserType)
+            {
+                case UserType.Admin:
+                   claims.Add(new Claim(ClaimTypes.Role, "Administrator"));
+                    break;
+                case UserType.User:
+                    claims.Add(new Claim(ClaimTypes.Role, "User"));
+                    break;
+                case UserType.Teacher:
+                    claims.Add(new Claim(ClaimTypes.Role, "Teacher"));
+                    break;
+            }
+
 
             var token = new JwtSecurityToken(
                 new JwtHeader(new SigningCredentials(
