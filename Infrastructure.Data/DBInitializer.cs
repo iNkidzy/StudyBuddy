@@ -18,8 +18,24 @@ namespace Infrastructure.Data
             {
                 Id = 1,
                 Email = "email@email.email",
-                IsTeacher = true,
+                UserType = UserType.Teacher,
                 Name = "Mig"
+            }).Entity;
+
+            var user2 = ctx.Users.Add(new User()
+            {
+                Id = 2,
+                Email = "email@email.email",
+                UserType = UserType.Admin,
+                Name = "Dig"
+            }).Entity;
+
+            var user3 = ctx.Users.Add(new User()
+            {
+                Id = 3,
+                Email = "email@email.email",
+                UserType = UserType.User,
+                Name = "Ikke Mig"
             }).Entity;
 
             ctx.SaveChanges();
