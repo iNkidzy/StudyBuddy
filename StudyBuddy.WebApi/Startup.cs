@@ -132,6 +132,7 @@ namespace StudyBuddy.UI
 
 
             services.AddControllers().AddNewtonsoftJson(options=> {
+               options.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                options.SerializerSettings.MaxDepth = 100;
             });
