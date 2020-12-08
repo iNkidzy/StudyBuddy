@@ -13,6 +13,14 @@ namespace StudyBuddy.Core.ApplicationService.Validators
             {
                 throw new NullReferenceException("User can not be null");
             }
+            if (string.IsNullOrEmpty(user.Name))
+            {
+                throw new ArgumentException("User's Name can not be empty");
+            }
+            if (string.IsNullOrEmpty(user.Email))
+            {
+                throw new ArgumentException("User's Email can not be empty");
+            }
         }
     }
 }
