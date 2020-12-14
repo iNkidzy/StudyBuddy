@@ -14,8 +14,10 @@ namespace Core.Entity
     {
         public long Id { get; set; }
         public List<Course> Courses { get; set; }
+        public List<Topic> SavedTopics { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
+        public string Password { get; set; }
         [Required]
         [MinLength(1)]
         public string Name { get; set; }

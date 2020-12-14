@@ -28,18 +28,15 @@ namespace Infrastructure.Data.Repositories
 
         public Topic Delete(long id)
         {
-           Topic t = GetTopics().ToList().Find(x => x.Id == id);
-          GetTopics().ToList().Remove(t);
-          if (t != null) 
-          {
-              return t;
-          }
-          return null;
+            Topic top = FindById(id);
+            _ctx.Attach(top).State = EntityState.Deleted;
+            _ctx.SaveChanges();
+            return top;
         }
 
         public Topic FindById(long id)
         {
-            return _ctx.Topics
+            return _ctx.Topics.Include(c => c.Comments)
                 .AsNoTracking()
                 .FirstOrDefault(c => c.Id == id);
         }
@@ -52,14 +49,10 @@ namespace Infrastructure.Data.Repositories
 
         public Topic Update(Topic topicUpdate)
         {
-            var topicDB = FindById(topicUpdate.Id);
-            if (topicDB != null)
-            {
-                topicDB.Name = topicUpdate.Name;
-                return topicDB;
-            }
-            return null;
-;
+            _ctx.Attach(topicUpdate).State = EntityState.Modified;
+            _ctx.SaveChanges();
+            return topicUpdate;
+            ;
         }
     }
 }
