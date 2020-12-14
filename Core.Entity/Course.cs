@@ -10,7 +10,7 @@ namespace Core.Entity
     {
         public long Id { get; set; }
         [Required]
-        [MinLength(1)]
+        [MinLength(1)]  
         public string Name { get; set; }
         public List<Topic> Topics { get; set; }
     }

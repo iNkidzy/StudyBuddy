@@ -26,13 +26,10 @@ namespace Infrastructure.Data.Repositories
 
         public Comment Delete(long id)
         {
-            Comment c = GetComment().ToList().Find(x => x.Id == id);
-            GetComment().ToList().Remove(c);
-            if (c != null) 
-            {
-                return c;
-            }
-            return null;
+            Comment com = FindById(id);
+            _ctx.Attach(com).State = EntityState.Deleted;
+            _ctx.SaveChanges();
+            return com;
         }
 
         public Comment FindById(long id)
@@ -51,14 +48,10 @@ namespace Infrastructure.Data.Repositories
 
         public Comment Update(Comment commentUpdate)
         {
-            var commentDB = FindById(commentUpdate.Id);
-            if (commentDB != null)
-            {
-                commentDB.MainBody = commentUpdate.MainBody;
-                return commentDB;
-            }
-            return null;
-            
+            _ctx.Attach(commentUpdate).State = EntityState.Modified;
+            _ctx.SaveChanges();
+            return commentUpdate;
+
         }
     }
 }

@@ -17,12 +17,10 @@ namespace Infrastructure.Data
         {
             modelBuilder.Entity<User>().Property(u => u.UserType)
                 .HasConversion<string>();
-            //modelBuilder.Entity<User>().Property(u => u.Name)
-            //    .HasMaxLength(40);
-            //modelBuilder.Entity<Course>().Property(c => c.Name)
-            //    .HasMaxLength(15);
-            //modelBuilder.Entity<Topic>().Property(t => t.Name)
-            //    .HasMaxLength(30);
+            modelBuilder.Entity<User>().HasMany(c => c.Courses);
+            modelBuilder.Entity<User>().HasMany(c => c.SavedTopics);
+            modelBuilder.Entity<Course>().HasMany(t => t.Topics);
+            modelBuilder.Entity<Topic>().HasMany(c => c.Comments);
         }
 
         public DbSet<User> Users { get; set; }

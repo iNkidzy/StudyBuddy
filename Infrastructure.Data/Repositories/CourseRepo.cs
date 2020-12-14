@@ -24,19 +24,16 @@ namespace Infrastructure.Data.Repositories
         }
 
         public Course Delete(long id)
-        { 
-            Course co = GetCourse().ToList().Find(x => x.Id == id);
-           GetCourse().ToList().Remove(co);
-           if (co != null) 
-           {
-               return co;
-           }
-           return null;
+        {
+            Course course = FindById(id);
+            _ctx.Attach(course).State = EntityState.Deleted;
+            _ctx.SaveChanges();
+            return course;
         }
 
         public Course FindById(long id)
         {
-            return _ctx.Courses
+            return _ctx.Courses.Include(c => c.Topics)
                 .AsNoTracking()
                 .FirstOrDefault(c => c.Id == id);
         }
@@ -49,14 +46,10 @@ namespace Infrastructure.Data.Repositories
 
         public Course Update(Course courseUpdate)
         {
-            var courseDB = FindById(courseUpdate.Id);
-            if (courseDB != null)
-            {
-                courseDB.Name = courseUpdate.Name;
-                return courseDB;
-            }
-            return null;
-         
+            _ctx.Attach(courseUpdate).State = EntityState.Modified;
+            _ctx.SaveChanges();
+            return courseUpdate;
+
         }
     }
 }
