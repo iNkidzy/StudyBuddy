@@ -12,8 +12,8 @@ namespace Infrastructure.Data.Repositories
     public class UserRepo : IUserRepository
     {
         private StudyBuddyContext _ctx;
-        private AuthenticationHelper _authenticationHelper;
-        public UserRepo(StudyBuddyContext ctx, AuthenticationHelper authHelp)
+        private IAuthenticationHelper _authenticationHelper;
+        public UserRepo(StudyBuddyContext ctx, IAuthenticationHelper authHelp)
         {
             _ctx = ctx;
             _authenticationHelper = authHelp;
