@@ -4,12 +4,18 @@ using System.Text;
 using Core.Entity;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore;
+using Infrastructure.Data.Helper;
 
 namespace Infrastructure.Data
 {
     public class DBInitializer
     {
-        public static void SeedDB(StudyBuddyContext ctx)
+        private IAuthenticationHelper _authenticationHelper;
+        public DBInitializer(IAuthenticationHelper authHelper)
+        {
+            _authenticationHelper = authHelper;
+        }
+        public void SeedDB(StudyBuddyContext ctx)
         {
             ctx.Database.EnsureDeleted();
             ctx.Database.EnsureCreated();
@@ -20,12 +26,25 @@ namespace Infrastructure.Data
             List<Comment> commentList2 = new List<Comment>();
             List<Course> courseList1 = new List<Course>();
 
+            string passwordUser1 = "teacher";
+            byte[] passwordHash1, passwordSalt1;
+            string passwordUser2 = "admin";
+            byte[] passwordHash2, passwordSalt2;
+            string passwordUser3 = "user";
+            byte[] passwordHash3, passwordSalt3;
+
+            _authenticationHelper.CreatePasswordHash(passwordUser1, out passwordHash1, out passwordSalt1);
+            _authenticationHelper.CreatePasswordHash(passwordUser2, out passwordHash2, out passwordSalt2);
+            _authenticationHelper.CreatePasswordHash(passwordUser3, out passwordHash3, out passwordSalt3);
+
             var user1 = ctx.Users.Add(new User()
             {
                 Id = 1,
                 Email = "email@email.email",
                 UserType = UserType.Teacher,
-                Name = "Mig",
+                Name = "teacher",
+                PasswordHash = passwordHash1,
+                PasswordSalt = passwordSalt1,
                 Courses = courseList1
             }).Entity;
 
@@ -34,7 +53,9 @@ namespace Infrastructure.Data
                 Id = 2,
                 Email = "email@email.email",
                 UserType = UserType.Admin,
-                Name = "Dig"
+                Name = "admin",
+                PasswordHash = passwordHash2,
+                PasswordSalt = passwordSalt2
             }).Entity;
 
             var user3 = ctx.Users.Add(new User()
@@ -42,7 +63,9 @@ namespace Infrastructure.Data
                 Id = 3,
                 Email = "email@email.email",
                 UserType = UserType.User,
-                Name = "Ikke Mig"
+                Name = "user",
+                PasswordHash = passwordHash3,
+                PasswordSalt = passwordSalt3
             }).Entity;
 
             var course1 = ctx.Courses.Add(new Course()

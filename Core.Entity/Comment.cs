@@ -13,6 +13,8 @@ namespace Core.Entity
         public User User { get; set; }
         public Topic Topic { get; set; }
         public DateTime DatePosted { get; set; }
+        public int TopicId { get; set; }
+        public int UserId { get; set; }
         public string MainBody { get; set; }
     }
 }

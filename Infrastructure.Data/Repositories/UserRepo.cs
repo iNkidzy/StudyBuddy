@@ -20,6 +20,12 @@ namespace Infrastructure.Data.Repositories
         }
         public User Create(User user)
         {
+            byte[] passHash;
+            byte[] passSalt;
+            _authenticationHelper.CreatePasswordHash(user.Password, out passHash, out passSalt);
+            user.PasswordHash = passHash;
+            user.PasswordSalt = passSalt;
+            user.Password = null;
             User u = _ctx.Users.Add(user).Entity;
              _ctx.SaveChanges();
              return u;
@@ -39,12 +45,7 @@ namespace Infrastructure.Data.Repositories
             User user = _ctx.Users
                 .AsNoTracking()
                 .FirstOrDefault(c => c.Id == id);
-            byte[] passHash;
-            byte[] passSalt;
-            _authenticationHelper.CreatePasswordHash(user.Password, out passHash, out passSalt );
-            user.PasswordHash = passHash;
-            user.PasswordSalt = passSalt;
-            user.Password = null;
+            
             return user;
         }
 

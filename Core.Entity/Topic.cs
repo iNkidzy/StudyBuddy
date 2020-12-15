@@ -16,6 +16,7 @@ namespace Core.Entity
         public string Name { get; set; }
         public string MainBody { get; set; }
         public List<Comment> Comments { get; set; }
+        public int CourseId { get; set; }
         public Course Course { get; set; }
     }
 }
