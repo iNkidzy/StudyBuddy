@@ -8,7 +8,7 @@ using Infrastructure.Data.Helper;
 
 namespace Infrastructure.Data
 {
-    public class DBInitializer
+    public class DBInitializer : IDBInitializer
     {
         private IAuthenticationHelper _authenticationHelper;
         public DBInitializer(IAuthenticationHelper authHelper)

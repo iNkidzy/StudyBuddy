@@ -77,6 +77,7 @@ namespace StudyBuddy.UI
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ICourseService, CourseService>();
             services.AddScoped<ITopicService, TopicService>();
+            services.AddTransient<IDBInitializer, DBInitializer>();
 
             //services.AddTransient<IDBinitializer, DBinitializer>();
 
@@ -147,7 +148,8 @@ namespace StudyBuddy.UI
                 
                 var services = scope.ServiceProvider;
                 var ctx = scope.ServiceProvider.GetService<StudyBuddyContext>();
-                DBInitializer.SeedDB(ctx);
+                var dbInit = services.GetService<IDBInitializer>();
+                dbInit.SeedDB(ctx);
 
             }
 
@@ -176,7 +178,6 @@ namespace StudyBuddy.UI
                 using (var scope = app.ApplicationServices.CreateScope())
                 {
                     var ctx = scope.ServiceProvider.GetService<StudyBuddyContext>();
-                    DBInitializer.SeedDB(ctx);
                 }
             }
 

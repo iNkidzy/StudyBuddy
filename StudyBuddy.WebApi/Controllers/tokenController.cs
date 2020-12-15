@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace StudyBuddy.WebApi.Controllers
 {
     [Route("/token")]
+    [ApiController]
     public class TokenController : Controller
     {
         private readonly UserRepo _userRepo;
