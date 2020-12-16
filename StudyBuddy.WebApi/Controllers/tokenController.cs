@@ -7,17 +7,18 @@ using Infrastructure.Data.Helper;
 using Infrastructure.Data.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using StudyBuddy.Core.DomainService;
 
 namespace StudyBuddy.WebApi.Controllers
 {
-    [Route("/token")]
+    [Route("api/token")]
     [ApiController]
     public class TokenController : Controller
     {
-        private readonly UserRepo _userRepo;
+        private readonly IUserRepository _userRepo;
         private readonly IAuthenticationHelper _authenticationHelper;
 
-        public TokenController(UserRepo userRepo, IAuthenticationHelper authHelper)
+        public TokenController(IUserRepository userRepo, IAuthenticationHelper authHelper)
         {
             _userRepo = userRepo;
             _authenticationHelper = authHelper;
@@ -39,9 +40,11 @@ namespace StudyBuddy.WebApi.Controllers
             // Authentication successful
             return Ok(new
             {
+                id = user.Id,
                 username = user.Name,
+                role = user.UserType,
                 token = _authenticationHelper.GenerateToken(user)
-            });
+            }); 
         }
     }
 }
