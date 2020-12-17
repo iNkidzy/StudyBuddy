@@ -42,7 +42,7 @@ namespace StudyBuddy.WebApi.Controllers
             {
                 id = user.Id,
                 username = user.Name,
-                role = user.UserType,
+                role = user.UserType.ToString(),
                 token = _authenticationHelper.GenerateToken(user)
             }); 
         }

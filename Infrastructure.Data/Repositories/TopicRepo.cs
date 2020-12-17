@@ -30,8 +30,6 @@ namespace Infrastructure.Data.Repositories
         {
             Topic top = FindById(id);
             _ctx.Attach(top).State = EntityState.Deleted;
-            var commentsToRemove = _ctx.Comments.Where(c => c.TopicId == id);
-            _ctx.Comments.RemoveRange(commentsToRemove);
             _ctx.SaveChanges();
             return top;
         }

@@ -9,12 +9,11 @@ namespace Core.Entity
     public class Comment
     {
         public long Id { get; set; }
-        [Required]
+        public long UserId { get; set; }
         public User User { get; set; }
+        public long TopicId { get; set; }
         public Topic Topic { get; set; }
         public DateTime DatePosted { get; set; }
-        public int TopicId { get; set; }
-        public int UserId { get; set; }
         public string MainBody { get; set; }
     }
 }

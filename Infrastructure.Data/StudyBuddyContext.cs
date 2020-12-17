@@ -20,7 +20,7 @@ namespace Infrastructure.Data
             modelBuilder.Entity<User>().HasMany(c => c.Courses);
             modelBuilder.Entity<User>().HasMany(c => c.SavedTopics);
             modelBuilder.Entity<Course>().HasMany(t => t.Topics);
-            modelBuilder.Entity<Topic>().HasMany(c => c.Comments);
+            modelBuilder.Entity<Topic>().HasMany(c => c.Comments).WithOne(c => c.Topic);
         }
 
         public DbSet<User> Users { get; set; }

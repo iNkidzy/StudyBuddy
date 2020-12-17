@@ -9,7 +9,7 @@ using StudyBuddy.Core.ApplicationService;
 
 namespace StudyBuddy.WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/topic")]
     [ApiController]
     public class TopicController : ControllerBase
     {

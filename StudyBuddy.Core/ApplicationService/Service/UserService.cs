@@ -58,10 +58,7 @@ namespace StudyBuddy.Core.ApplicationService.Service
             }
             else
             {
-                var user = FindById(userUpdate.Id);
-                user.Name = userUpdate.Name;
-                user.Email = userUpdate.Email;
-                return user;
+                return _usrRepo.Update(userUpdate);
             }
         }
     }

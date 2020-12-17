@@ -27,10 +27,6 @@ namespace Infrastructure.Data.Repositories
         {
             Course course = FindById(id);
             _ctx.Attach(course).State = EntityState.Deleted;
-            var topicsToRmeove = _ctx.Topics.Where(t => t.CourseId == id).ToList();
-            _ctx.Topics.RemoveRange(topicsToRmeove);
-            var commentsToRemove = _ctx.Comments.Where(c => topicsToRmeove.FirstOrDefault(t => t.Id == c.TopicId) != null);
-            _ctx.Comments.RemoveRange(commentsToRemove);
             _ctx.SaveChanges();
             return course;
         }
