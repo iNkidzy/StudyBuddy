@@ -11,13 +11,15 @@ namespace StudyBuddy.Core.ApplicationService.Service
     public class CourseService : ICourseService
     {
         readonly ICourseRepository _crRepo;
-
-        public CourseService(ICourseRepository courseRepository) 
+        readonly ICourseValidator _courseValidator;
+        public CourseService(ICourseRepository courseRepository, ICourseValidator courseValidator) 
         {
+            _courseValidator = courseValidator;
             _crRepo = courseRepository;
         }
         public Course Create(Course course)
         {
+            _courseValidator.DefaultValidation(course);
             return _crRepo.Create(course);
         }
 

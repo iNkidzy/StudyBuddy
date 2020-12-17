@@ -11,13 +11,16 @@ namespace StudyBuddy.Core.ApplicationService.Service
     public class TopicService : ITopicService
     {
         readonly ITopicRepository _topRepo;
-        public TopicService(ITopicRepository topicRepository) 
+        readonly ITopicValidator _topicValidator;
+        public TopicService(ITopicRepository topicRepository, ITopicValidator topicValidator) 
         {
             _topRepo = topicRepository;
+            _topicValidator = topicValidator;
         }
 
         public Topic Create(Topic topic)
         {
+            _topicValidator.DefaultValidation(topic);
             return _topRepo.Create(topic);
         }
 

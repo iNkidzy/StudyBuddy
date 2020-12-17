@@ -11,13 +11,15 @@ namespace StudyBuddy.Core.ApplicationService.Service
     public class UserService : IUserService
     {
         readonly IUserRepository _usrRepo;
-        public UserService(IUserRepository userRepository) 
+        readonly IUserValidator _userValidator;
+        public UserService(IUserRepository userRepository, IUserValidator userValidator) 
         {
             _usrRepo = userRepository;
         }
 
         public User Create(User user)
         {
+            _userValidator.DefaultValidation(user);
             return _usrRepo.Create(user);
         }
 

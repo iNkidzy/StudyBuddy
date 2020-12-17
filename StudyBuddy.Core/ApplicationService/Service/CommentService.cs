@@ -11,12 +11,15 @@ namespace StudyBuddy.Core.ApplicationService.Service
     public class CommentService : ICommentService
     {
         readonly ICommentRepository _comRepo;
-        public CommentService(ICommentRepository commentRepository) 
+        readonly ICommentValidator _commentValidator;
+        public CommentService(ICommentRepository commentRepository, ICommentValidator commentValidator) 
         {
+            _commentValidator = commentValidator;
             _comRepo = commentRepository;
         }
         public Comment Create(Comment comment)
         {
+            _commentValidator.DefaultValidation(comment);
             return _comRepo.Create(comment);
         }
 
