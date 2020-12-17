@@ -21,9 +21,12 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
+using StudyBuddy.Core;
 using StudyBuddy.Core.ApplicationService;
 using StudyBuddy.Core.ApplicationService.Service;
+using StudyBuddy.Core.ApplicationService.Validators;
 using StudyBuddy.Core.DomainService;
+using StudyBuddy.Core.Validators;
 
 namespace StudyBuddy.UI
 {
@@ -77,6 +80,10 @@ namespace StudyBuddy.UI
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ICourseService, CourseService>();
             services.AddScoped<ITopicService, TopicService>();
+            services.AddScoped<ICommentValidator, CommentValidator>();
+            services.AddScoped<IUserValidator, UserValidator>();
+            services.AddScoped<ICourseValidator, CourseValidator>();
+            services.AddScoped<ITopicValidator, TopicValidator>();
             services.AddTransient<IDBInitializer, DBInitializer>();
 
             //services.AddTransient<IDBinitializer, DBinitializer>();

@@ -6,10 +6,6 @@ namespace StudyBuddy.Core.Validators
 {
     public class CourseValidator:ICourseValidator
     {
-        public CourseValidator()
-        {
-        }
-
         public void DefaultValidation(Course course)
         {
             if (course == null)
