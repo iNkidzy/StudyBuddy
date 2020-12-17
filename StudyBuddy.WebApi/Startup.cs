@@ -50,20 +50,51 @@ namespace StudyBuddy.UI
                 builder.AddConsole();
             });
 
+            // AUTHENTICATION
+            Byte[] secretBytes = new byte[40];
+            Random rand = new Random();
+            rand.NextBytes(secretBytes);
+            services.AddSingleton<IAuthenticationHelper>(new
+                AuthenticationHelper(secretBytes));
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateAudience = false,
+                    //ValidAudience = "TodoApiClient",
+                    ValidateIssuer = false,
+                    //ValidIssuer = "TodoApi",
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(secretBytes),
+                    ValidateLifetime = true, //validate the expiration and not before values in the token
+                    ClockSkew = TimeSpan.FromMinutes(5) //5 minute tolerance for the expiration date
+                };
+            });
+
+            //CORS
+            services.AddCors(options =>
+              options.AddDefaultPolicy(
+                  builder =>
+                  {
+                      builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                  })
+          );
+
             //AddEnvironment for deployment context/Azure
 
-            // if (Environment.IsDevelopment())
-            // {   
-            //      services.AddDbContext<context>(opt => { opt.UseSqlite("Data Source=StudyBuddy.db"); }
-            //       );
-            //   }
-            //else
-            //{
-            //    //Azure SQL database:
-            //    services.AddDbContext<context>(opt =>
-            //        opt.UseSqlServer(Configuration.GetConnectionString("defaultConnection"))
-            //        );
-            //}
+            if (Environment.IsDevelopment())
+            {
+                services.AddDbContext<StudyBuddyContext>(opt => { opt.UseSqlite("Data Source=StudyBuddy.db"); }
+                 );
+            }
+            else
+            {
+                //Azure SQL database:
+                services.AddDbContext<StudyBuddyContext>(opt =>
+                   opt.UseSqlServer(Configuration.GetConnectionString("defaultConnection"))
+                   );
+            }
 
 
 
@@ -85,40 +116,22 @@ namespace StudyBuddy.UI
             services.AddScoped<ICourseValidator, CourseValidator>();
             services.AddScoped<ITopicValidator, TopicValidator>();
             services.AddTransient<IDBInitializer, DBInitializer>();
+            //services.AddScoped<IValida>
 
             //services.AddTransient<IDBinitializer, DBinitializer>();
 
-            Byte[] secretBytes = new byte[40];
-            Random rand = new Random();
-            rand.NextBytes(secretBytes);
-            services.AddSingleton<IAuthenticationHelper>(new 
-                AuthenticationHelper(secretBytes));
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
-            {
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateAudience = false,
-                    //ValidAudience = "TodoApiClient",
-                    ValidateIssuer = false,
-                    //ValidIssuer = "TodoApi",
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(secretBytes),
-                    ValidateLifetime = true, //validate the expiration and not before values in the token
-                    ClockSkew = TimeSpan.FromMinutes(5) //5 minute tolerance for the expiration date
-                };
-            });
 
             //Swagger
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
-                { 
-                 Version = "v1",
-                 Title = "StudyBuddy Swagger",
-                 Description = "Welcome to the insides of the Study Buddy.Enjoy!"
-              });
+                {
+                    Version = "v1",
+                    Title = "StudyBuddy Swagger",
+                    Description = "Welcome to the insides of the Study Buddy.Enjoy!"
+                });
 
                 // Set the comments path for the Swagger JSON and UI.
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
@@ -127,22 +140,15 @@ namespace StudyBuddy.UI
 
             });
 
-            //CORS
-
-            services.AddCors(options =>
-              options.AddDefaultPolicy(
-                  builder =>
-                  {
-                      builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
-                  })
-          );
 
 
 
-            services.AddControllers().AddNewtonsoftJson(options=> {
-               options.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
-               options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-               options.SerializerSettings.MaxDepth = 100;
+
+            services.AddControllers().AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                options.SerializerSettings.MaxDepth = 100;
             });
         }
 
@@ -152,7 +158,7 @@ namespace StudyBuddy.UI
 
             using (var scope = app.ApplicationServices.CreateScope())
             {
-                
+
                 var services = scope.ServiceProvider;
                 var ctx = scope.ServiceProvider.GetService<StudyBuddyContext>();
                 var dbInit = services.GetService<IDBInitializer>();
@@ -163,10 +169,10 @@ namespace StudyBuddy.UI
 
             app.UseSwagger();
 
-            
 
-           app.UseSwaggerUI(c =>
-           {
+
+            app.UseSwaggerUI(c =>
+            {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
