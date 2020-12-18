@@ -13,14 +13,6 @@ namespace StudyBuddy.Core.ApplicationService.Validators
             {
                 throw new NullReferenceException("Topic can not be null");
             }
-            if(topic.Course == null)
-            {
-                throw new NullReferenceException("Topic must have a Course");
-            }
-            if(topic.Comments == null)
-            {
-                throw new NullReferenceException("Comment list must be initialized");
-            }
             if(topic.MainBody == null)
             {
                 throw new NullReferenceException("Topic MainBody must be initialized");

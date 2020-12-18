@@ -15,6 +15,7 @@ namespace StudyBuddy.Core.ApplicationService.Service
         public UserService(IUserRepository userRepository, IUserValidator userValidator) 
         {
             _usrRepo = userRepository;
+            _userValidator = userValidator;
         }
 
         public User Create(User user)
